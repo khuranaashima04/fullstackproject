@@ -1,0 +1,15 @@
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task-list-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--surface-color);
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}

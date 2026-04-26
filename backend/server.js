@@ -12,9 +12,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Routes (Original)
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
+
+// Routes (Fallback in case Vercel strips the /api prefix)
+app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
+
+// Health Check
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/taskmanager')

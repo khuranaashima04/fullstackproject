@@ -21,7 +21,13 @@ const Login = ({ setToken, setUsername, onSwitchToRegister }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      const data = await response.json();
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        data = await response.json();
+      } else {
+        data = { message: 'Server error or backend not reachable.' };
+      }
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
